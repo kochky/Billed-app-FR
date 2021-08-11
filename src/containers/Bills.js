@@ -27,7 +27,6 @@ export default class {
     $('#modaleFile').modal('show')
   }
 
-  // not need to cover this function by tests
   getBills = () => {
     const userEmail = localStorage.getItem('user') ?
       JSON.parse(localStorage.getItem('user')).email : ""
@@ -37,27 +36,28 @@ export default class {
       .get()
       .then(snapshot => {
         const bills = snapshot.docs
-          .map(doc => {
-            try {
-              return {
-                ...doc.data(),
-                date: formatDate(doc.data().date),
-                status: formatStatus(doc.data().status)
-              }
-            } catch(e) {
-              // if for some reason, corrupted data was introduced, we manage here failing formatDate function
-              // log the error and return unformatted date in that case
-              console.log(e,'for',doc.data())
-              return {
-                ...doc.data(),
-                date: doc.data().date,
-                status: formatStatus(doc.data().status)
-              }
+        .map(doc => {
+          try {
+            return {
+              ...doc.data(),
+              date2: doc.data().date,
+              date: formatDate(doc.data().date),
+              status: formatStatus(doc.data().status)
             }
-          })
+          } catch(e) {
+            return {
+              ...doc.data(),
+              date: doc.data().date,
+              status: formatStatus(doc.data().status)
+            }
+          }
+        })
           .filter(bill => bill.email === userEmail)
-          console.log('length', bills.length)
-        return bills
+        //   const antiChrono = (a, b) => 
+        //   (
+        //     (a.date2 <= b.date2) ? 1 : -1)
+        // bills.sort(antiChrono)  
+         return bills
       })
       .catch(error => error)
     }

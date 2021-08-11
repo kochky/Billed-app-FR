@@ -1,7 +1,7 @@
-import LoginUI from "../views/LoginUI.js"
-import BillsUI from "../views/BillsUI.js"
-import NewBillUI from "../views/NewBillUI.js"
-import DashboardUI from "../views/DashboardUI.js"
+import BillsUI from "../views/BillsUI.js";
+import DashboardUI from "../views/DashboardUI.js";
+import LoginUI from "../views/LoginUI.js";
+import NewBillUI from "../views/NewBillUI.js";
 
 export const ROUTES_PATH = {
   Login: '/',

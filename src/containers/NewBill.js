@@ -19,7 +19,15 @@ export default class NewBill {
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
-    this.firestore
+    const errorMessage = document.querySelector(
+      '[data-testid="file-error-message"]'
+    );
+ 
+    if(file.name.length - file.name.indexOf(".jpg")== 4 ||file.name.length - file.name.indexOf(".png")== 4 || file.name.length - file.name.indexOf(".jpeg")== 5){
+      //errorMessage.classList.remove("show");
+      errorMessage.textContent = "";
+      if (this.firestore) {
+      this.firestore
       .storage
       .ref(`justificatifs/${fileName}`)
       .put(file)
@@ -27,10 +35,23 @@ export default class NewBill {
       .then(url => {
         this.fileUrl = url
         this.fileName = fileName
-      })
+      
+      
+ 
+      })}
+    }else{
+     
+     e.target.value = "";
+    errorMessage.textContent = "Fichier JPG, JPEG ou PNG uniquement";
+      //errorMessage.classList.add("show");
+
+        
+      }
+     
   }
   handleSubmit = e => {
     e.preventDefault()
+  
     console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
     const email = JSON.parse(localStorage.getItem("user")).email
     const bill = {
@@ -46,8 +67,10 @@ export default class NewBill {
       fileName: this.fileName,
       status: 'pending'
     }
+   
     this.createBill(bill)
     this.onNavigate(ROUTES_PATH['Bills'])
+ 
   }
 
   // not need to cover this function by tests
