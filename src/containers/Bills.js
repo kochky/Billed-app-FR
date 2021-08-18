@@ -40,7 +40,7 @@ export default class {
           try {
             return {
               ...doc.data(),
-              date2: doc.data().date,
+              //date2: doc.data().date,
               date: formatDate(doc.data().date),
               status: formatStatus(doc.data().status)
             }
