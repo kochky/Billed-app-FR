@@ -22,11 +22,11 @@ export default class {
 
   handleClickIconEye = (icon) => {
     const billUrl = icon.getAttribute("data-bill-url")
-    const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
-    $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} /></div>`)
+    $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;'><img width="100%" src=${billUrl} /></div>`)
     $('#modaleFile').modal('show')
   }
 
+  // not need to cover this function by tests
   getBills = () => {
     const userEmail = localStorage.getItem('user') ?
       JSON.parse(localStorage.getItem('user')).email : ""
@@ -40,7 +40,7 @@ export default class {
           try {
             return {
               ...doc.data(),
-              //date2: doc.data().date,
+              date2: doc.data().date,
               date: formatDate(doc.data().date),
               status: formatStatus(doc.data().status)
             }
@@ -53,10 +53,10 @@ export default class {
           }
         })
           .filter(bill => bill.email === userEmail)
-        //   const antiChrono = (a, b) => 
-        //   (
-        //     (a.date2 <= b.date2) ? 1 : -1)
-        // bills.sort(antiChrono)  
+          const antiChrono = (a, b) => 
+           (
+            (a.date2 <= b.date2) ? 1 : -1)
+         bills.sort(antiChrono)  
          return bills
       })
       .catch(error => error)

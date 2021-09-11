@@ -24,7 +24,6 @@ export default class NewBill {
     );
  
     if(file.name.length - file.name.indexOf(".jpg")== 4 ||file.name.length - file.name.indexOf(".png")== 4 || file.name.length - file.name.indexOf(".jpeg")== 5){
-      //errorMessage.classList.remove("show");
       errorMessage.textContent = "";
       if (this.firestore) {
       this.firestore
@@ -35,17 +34,10 @@ export default class NewBill {
       .then(url => {
         this.fileUrl = url
         this.fileName = fileName
-      
-      
- 
       })}
     }else{
-     
      e.target.value = "";
-    errorMessage.textContent = "Fichier JPG, JPEG ou PNG uniquement";
-      //errorMessage.classList.add("show");
-
-        
+    errorMessage.textContent = "Fichier JPG, JPEG ou PNG uniquement"; 
       }
      
   }
