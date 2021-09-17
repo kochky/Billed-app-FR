@@ -1,3 +1,9 @@
+# OPENCLASSROOMS PROJECT 9
+
+Débuggez et testez un SaaS RH:
+  Elaborer des tests avec Jest pour tester l'ensemble de l'application
+
+
 **Comment lancer l'application en local** :
 
 Clonez le projet :
